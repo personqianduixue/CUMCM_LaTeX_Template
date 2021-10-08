@@ -1,0 +1,19 @@
+function out=mult_syg7(z,x)
+Pi=3.14159;
+r0= 1.24*10^-3; % Outer diameter  of the membrane, [m]
+ri= 9.4*10^-4;% Inner diameter  of the membrane, [m]
+r=(r0-ri)/log(r0/ri);% equivalent diameter ,[m]
+L=0.05;% membrane length,[m]
+Ac=Pi*r*L;% membrane area [m^2]
+R=8.314;
+T0=1000;
+T=T0+273;
+P=101.325;%kpa
+F=2.678*10^-2*2;
+m=3;
+n=1;
+S=(1+m+n+2*x(1))/P;
+PCH4=(1-x(1))/S;
+PH2O=(m-x(1)-x(2))/S;
+out= [Ac/F*1.5*10^-3*exp(-117*10^3/(R*T))*PCH4.^0.97.*PH2O.^-0.08...
+    (3*x(1)+x(2)).*x(2)./(1-x(2))./(m-x(1)-x(2))-exp(4400/T-4.063)];
